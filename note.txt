@@ -1,1 +1,33 @@
-
+BetaGoTrainer/                ← PyCharm 项目根目录
+├── config/
+├── data/
+├── model/
+├── utils/
+├── output/
+    ├── model_weights.json        ← ✅ 训练完后统一导出到这个位置
+├── BetaGo/                ← ✅ 手机上的BetaGo JS 代码整体放这里
+│   ├── index.html            ← ✅ JS 操作界面（在 PC 上打开）
+│   ├── assets/
+│   └── static/
+│       └── js/
+│           ├── ModelRunner.js
+│           ├── DataLogger.js ← ✅ 数据写入SQLite
+│           ├── game-logic.js   #定义游戏规则，结束条件
+            ├── ui-render.js    #棋盘渲染
+            └── utils.js  #终局时数子决定胜负
+            └── game-state.js  #棋盘大小和初始状态设置
+		        └── ai-agent.js  #用AI棋手来替代人类棋手
+            └── main.js  
+│
+├── db/
+│   └── game_data.sqlite      ← ✅ 对局数据直接写入此数据库
+│
+├── scripts/
+│   └── self_play.py   ← ✅ 调用 JS 运行多局游戏（例如用 Node）
+    └── go.py 
+		└── policy_net.py 
+		└── export.py 
+		└── train.py 
+		└── visualize.py 
+    ├── main.py            ← ✅ 总入口，跑训练或自博弈
+└── requirements.txt

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>围棋</title>
+
+  <!-- 依赖库 -->
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@1.4.7/dist/peerjs.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <h2 class="center">围棋</h2>
+  <br>
+	
+	<div id="playerColorInfo" class="player-color-info">
+	  你执 <span id="playerColorLabel"></span>
+	</div>
+	<div id="clockBar">
+	  <div class="clock-item black">
+	    <div class="stone-icon black"></div>
+	    <div class="timer" id="black-timer">60:00</div>
+	  </div>
+	  <div class="spacer"></div>
+	  <div class="clock-item white">
+	    <div class="timer" id="white-timer">60:00</div>
+	    <div class="stone-icon white"></div>
+	  </div>
+	</div>
+	
+	<br>
+  <!-- 棋盘区域 -->
+  <div id="board"></div>
+	
+	<!-- 棋盘下方的操作按钮 -->
+	<div id="gameActions" style="margin-top: 20px; text-align: center;">
+	  <button id="passBtn" onclick="handlePass()" class="game-action-btn">Pass</button>
+	  <button id="resignBtn" onclick="handleResign()" class="game-action-btn">认输</button>
+	  <button id="aiBtn" onclick="toggleAIPlayer()" class="game-action-btn">AI接管</button>
+	</div>
+	
+	<!-- 自动配对等待视图 -->
+  <div id="waitingView" class="center">
+    <p style="font-size: 18px;">🎯 正在寻找对手中...</p>
+    <p style="font-size: 14px;">
+      （我的 Peer ID: <span id="myPeerIdDisplay">...</span>）
+    </p>
+  </div>
+	
+	<!-- 再来一局按钮 -->
+  <div class="restart-container">
+    <button id="restartBtn" onclick="restartGame()" style="display: none;">再来一局</button>
+  </div>
+
+  <!-- 结果展示 -->
+  <div id="resultBox" class="result-box" style="display: none;"></div>
+
+  <!-- 调试区域 -->
+  <div id="debug-panel" style="display: none;">
+    <h3>调试信息</h3>
+    <div id="debug-log"></div>
+  </div>
+
+  <!-- 模块 JS 加载顺序必须一致 -->
+  <script src="js/game-state.js"></script>
+	<script src="js/utils.js"></script>
+  <script src="js/firebase-init.js"></script>
+	<script src="js/game-logic.js"></script>
+  <script src="js/webrtc-conn.js"></script>
+  <script src="js/ui-render.js"></script>
+	
+	<!-- 必须按此顺序加载 -->
+<script src="js/ai-eval.js"></script> 
+<script src="js/ai-mcts.js"></script> 
+<script src="js/ai-go.js"></script>   
+<!-- 最终暴露window.AIAgent -->
+
+<!-- 简单的启发式算法 
+<script src="js/ai-agent.js"></script>
+-->
+
+  <script src="js/main.js"></script>
+</body>
+</html>
