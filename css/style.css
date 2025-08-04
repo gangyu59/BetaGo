@@ -1,1 +1,275 @@
+/* ========= 基础样式 ========= */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-size: 150%;
+}
 
+
+
+:root {
+  --cell-size: 66px;
+  --stone-size: calc(var(--cell-size) * 0.85);
+  --line-count: 9;
+  --grid-size: calc((var(--line-count) - 1) * var(--cell-size));
+}
+
+#board {
+  position: relative;
+  width: var(--grid-size);
+  height: var(--grid-size);
+  max-width: 100vw;
+  max-height: 80vh;
+  background-color: #DCB35C;
+  border: 2px solid #333;
+  margin: 20px auto;
+}
+
+/* 绘制网格线 */
+#board::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, black 1px, transparent 1px),
+    linear-gradient(to bottom, black 1px, transparent 1px);
+  background-size: var(--cell-size) var(--cell-size);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 交叉点 */
+.intersection {
+  position: absolute;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+/* 棋子 */
+.stone {
+  position: absolute;
+  width: var(--stone-size);
+  height: var(--stone-size);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.black-stone {
+  background-color: black;
+}
+
+.white-stone {
+  background-color: white;
+  border: 1px solid black;
+}
+
+/* 星位 */
+.star-point {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: black;
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ========= 动画效果 ========= */
+@keyframes stoneAppear {
+  from { transform: translate(-50%, -50%) scale(0); }
+  to { transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ========= 保留您原有的UI样式 ========= */
+.center { text-align: center; margin-top: 30px; }
+.btn { padding: 15px 30px; font-size: 20px; margin: 10px; }
+input { padding: 12px; font-size: 20px; margin: 10px; width: 220px; }
+
+#debug-panel {
+  position: fixed;
+  bottom: 10px;
+  background: #f5f5f5;
+  padding: 15px;
+  width: 100%;
+  font-size: 100%;
+  height: 500px;
+  overflow-y: auto;
+  border-top: 2px solid #ccc;
+}
+
+#mobile-console-toggle {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  background: #444;
+  color: white;
+  padding: 10px 15px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+#mobile-console {
+  position: fixed;
+  bottom: 180px;
+  left: 0;
+  width: 100%;
+  height: 200px;
+  background: black;
+  color: lime;
+  overflow-y: auto;
+  padding: 12px;
+  font-size: 18px;
+  z-index: 999;
+  border-top: 2px solid lime;
+}
+
+button {
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #1976d2;
+  color: white;
+}
+
+#endGameBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 18px;
+  font-size: 16px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+
+.result-box {
+  display: none;
+  background: #fff3cd;
+  padding: 15px;
+  margin-top: 15px;
+  border: 1px solid #ffeeba;
+  border-radius: 6px;
+  font-size: 20px;
+}
+
+.restart-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+#restartBtn {
+  padding: 8px 16px;
+  font-size: 28px;
+  border-radius: 5px;
+  background-color: green;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#restartBtn:hover {
+  background-color: #0056b3;
+}
+
+#clockBar {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+  padding: 5px 15px;
+  background-color: #e8f5e9;
+  border-radius: 8px;
+  font-weight: regular;
+  font-size: 40px;
+}
+
+.clock-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stone-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #333;
+}
+
+.stone-icon.black {
+  background-color: black;
+}
+
+.stone-icon.white {
+  background-color: white;
+}
+
+.timer.active {
+  background-color: yellow;
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+
+.spacer {
+  width: 180px;
+}
+
+.red-dot {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.game-action-btn {
+  font-size: 28px;
+  color: white;
+  background-color: blue;
+  border: 2px solid lightblue;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin: 0 50px; /* 左右间隔共100px */
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.game-action-btn:hover {
+  background-color: lightblue;
+  color: white;
+}
+
+/* AI 已接管时让按钮变红 */
+.game-action-btn.ai-active {
+  background-color: #c40000 !important;   /* 深红 */
+  border-color: #ff8080 !important;
+}
+
+.game-action-btn.ai-active:hover {
+  background-color: #ff4c4c !important;   /* 浅红 */
+}
+
+.player-color-info {
+  text-align: center;
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+#playerColorLabel {
+  font-weight: bold;
+	font-size: 32px;
+  color: #333;
+}
